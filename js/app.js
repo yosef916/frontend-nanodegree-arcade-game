@@ -2,7 +2,9 @@
 var Enemy = function(vertical, horizontal, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    this.x = vertical;
+    this.y = horizontal;
+    this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -32,7 +34,7 @@ var Ply = function (plyVertical, plyHorizontal) {
 
 Ply.prototype.update = function(dt) {
 
-}
+};
 
 Ply.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
