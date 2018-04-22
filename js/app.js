@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(vertical, horizontal, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -24,6 +24,21 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Ply = function (plyVertical, plyHorizontal) {
+  this.plyVertical = plyVertical;
+  this.plyHorizontal = plyHorizontal;
+  this.sprite = 'images/char-boy.png';
+}
+
+Ply.prototype.update = function(dt) {
+
+}
+
+Ply.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+  var player = new Ply (5, 8);
 
 
 // Now instantiate your objects.
@@ -44,3 +59,5 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+var allEnemies = [];
