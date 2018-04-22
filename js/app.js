@@ -1,9 +1,9 @@
 // Enemies our player must avoid
-var Enemy = function(vertical, horizontal, speed) {
+var Enemy = function(horizontal, vertical, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = vertical;
-    this.y = horizontal;
+    this.x = horizontal;
+    this.y = vertical;
     this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -16,6 +16,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -26,9 +27,9 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Ply = function (plyVertical, plyHorizontal) {
-  this.plyVertical = plyVertical;
+var Ply = function (plyHorizontal, plyVertical) {
   this.plyHorizontal = plyHorizontal;
+  this.plyVertical = plyVertical;
   this.sprite = 'images/char-boy.png';
 }
 
@@ -40,26 +41,50 @@ Ply.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-  var player = new Ply (5, 8);
+Ply.prototype.handleInput = function(key) {
+  switch (key) {
+    case 'left':
+      this.x -=  30;
+      break;
 
+    case 'up':
+      this.y -=  50;
+      break;
+
+    case 'right':
+      this.x +=  30;
+      break;
+
+    case 'down':
+      this.y += 50;
+      break;
+  }
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+let allEnemies = [];
+let player = new Ply (10, 80);
 
+let y = 65;
+let moveVerticaly = 80;
 
-
+for (let i = 1; i <= 3 ; i++) {
+    let speed = Math.random() * 100 * i;
+    let bugs = new Enemy( 5, y, speed);
+    allEnemies.push(bugs);
+    y = y + moveVerticaly;
+}
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+  var allowedKeys = {
+    37: 'left',
+    38: 'up',
+    39: 'right',
+    40: 'down'
+  };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+  player.handleInput(allowedKeys[e.keyCode]);
 });
-
-var allEnemies = [];
