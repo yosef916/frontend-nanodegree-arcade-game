@@ -12,15 +12,29 @@ var Enemy = function(horizontal, vertical, speed) {
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
+
+let enemyW = 97, enemyH = 67;
+
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+     // this.x += this.speed*dt;
   if (this.x > 540) {
     this.x = -70;
-    this.speed = Math.random() * 1000;
+    this.speed = Math.random() * 700;
   } else {
     this.x += this.speed*dt;
+  }
+
+  // https://developer.mozilla.org/kab/docs/Games/Techniques/2D_collision_detection
+  if (player.plyHorizontal < this.x + enemyW &&
+      player.plyHorizontal + enemyW > this.x &&
+      player.plyVertical < this.y + enemyH && 
+      enemyH + player.plyVertical > this.y) {
+
+      player.plyHorizontal = 200;
+      player.plyVertical = 400;
   }
 };
 
@@ -41,7 +55,7 @@ var Ply = function (plyHorizontal, plyVertical) {
 Ply.prototype.update = function(dt) {
   if (this.plyHorizontal > 405) {this.plyHorizontal = 400}; //RIGHT
   if (this.plyHorizontal < 0) { this.plyHorizontal = 0}; //LEFT
-  if (this.plyVertical < 0) { this.plyVertical = 400}; //UP
+  if (this.plyVertical < -50) { this.plyVertical = 400}; //UP
   if (this.plyVertical > 400) { this.plyVertical = 400}; //DOWN
 };
 
@@ -72,10 +86,10 @@ Ply.prototype.handleInput = function(key) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-let allEnemies = [], player = new Ply (100, 400), y = 65;
+let allEnemies = [], player = new Ply (200, 400), y = 65;
 
 for (let i = 1; i <= 3 ; i++) {
-    let speed = Math.random() * 700;
+    let speed = Math.random() * 500;
     let bugs = new Enemy( 0, y, speed);
     allEnemies.push(bugs);
     y = y + 80;
