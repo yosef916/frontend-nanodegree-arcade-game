@@ -16,7 +16,12 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+  if (this.x > 540) {
+    this.x = -70;
+    this.speed = Math.random() * 1000;
+  } else {
     this.x += this.speed*dt;
+  }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -31,32 +36,32 @@ var Ply = function (plyHorizontal, plyVertical) {
   this.plyHorizontal = plyHorizontal;
   this.plyVertical = plyVertical;
   this.sprite = 'images/char-boy.png';
-}
+};
 
 Ply.prototype.update = function(dt) {
 
 };
 
 Ply.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.plyHorizontal, this.plyVertical);
 };
 
 Ply.prototype.handleInput = function(key) {
   switch (key) {
     case 'left':
-      this.x -=  30;
+      this.x -=  plyHorizontal;
       break;
 
     case 'up':
-      this.y -=  50;
+      this.y -=  plyVertical;
       break;
 
     case 'right':
-      this.x +=  30;
+      this.x +=  plyHorizontal;
       break;
 
     case 'down':
-      this.y += 50;
+      this.y += plyVertical;
       break;
   }
 };
@@ -64,17 +69,13 @@ Ply.prototype.handleInput = function(key) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-let allEnemies = [];
-let player = new Ply (10, 80);
-
-let y = 65;
-let moveVerticaly = 80;
+let allEnemies = [], player = new Ply (100, 400), y = 65;
 
 for (let i = 1; i <= 3 ; i++) {
-    let speed = Math.random() * 100 * i;
-    let bugs = new Enemy( 5, y, speed);
+    let speed = Math.random() * 700;
+    let bugs = new Enemy( 0, y, speed);
     allEnemies.push(bugs);
-    y = y + moveVerticaly;
+    y = y + 80;
 }
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
