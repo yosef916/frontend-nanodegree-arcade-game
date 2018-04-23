@@ -39,7 +39,7 @@ var Ply = function (plyHorizontal, plyVertical) {
 };
 
 Ply.prototype.update = function(dt) {
-
+  
 };
 
 Ply.prototype.render = function() {
@@ -49,19 +49,19 @@ Ply.prototype.render = function() {
 Ply.prototype.handleInput = function(key) {
   switch (key) {
     case 'left':
-      this.x -=  plyHorizontal;
+      this.plyHorizontal -=  100;
       break;
 
     case 'up':
-      this.y -=  plyVertical;
+      this.plyVertical -= 85;
       break;
 
     case 'right':
-      this.x +=  plyHorizontal;
+      this.plyHorizontal +=  100;
       break;
 
     case 'down':
-      this.y += plyVertical;
+      this.plyVertical += 85;
       break;
   }
 };
