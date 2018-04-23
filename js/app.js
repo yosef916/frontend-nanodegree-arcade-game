@@ -39,7 +39,10 @@ var Ply = function (plyHorizontal, plyVertical) {
 };
 
 Ply.prototype.update = function(dt) {
-  
+  if (this.plyHorizontal > 405) {this.plyHorizontal = 400}; //RIGHT
+  if (this.plyHorizontal < 0) { this.plyHorizontal = 0}; //LEFT
+  if (this.plyVertical < 0) { this.plyVertical = 400}; //UP
+  if (this.plyVertical > 400) { this.plyVertical = 400}; //DOWN
 };
 
 Ply.prototype.render = function() {
